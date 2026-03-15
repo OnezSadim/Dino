@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Afspraak Boeken – Dino Barbershop Knipper en Scheren</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:Montserrat,sans-serif;}
+.step-panel{display:none;}.step-panel.active{display:block;}
+.time-btn.selected,.date-btn.selected{background:#997B4D;color:#fff;border-color:#997B4D;}
+.treatment-btn.selected{border-color:#997B4D;background:#997B4D0d;}
+</style>
+</head>
+<body class="min-h-screen bg-gray-50">
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center justify-between mb-6">
+<button onclick="goBack()" class="flex items-center gap-2 text-gray-600 hover:text-[#997B4D] transition-colors group"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg><span class="uppercase tracking-widest text-xs">Terug</span></button>
+<a href="index.html" class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#997B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg><div class="text-right"><div class="text-sm font-light uppercase tracking-widest text-gray-800">Dino Barbershop</div><div class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Knipper en Scheren</div></div></a>
+</div>
+<div class="relative mb-8"><div class="h-[2px] bg-gray-100 w-full absolute top-1/2 -translate-y-1/2"></div><div id="progressFill" class="h-[2px] transition-all duration-700 absolute top-1/2 -translate-y-1/2" style="width:8.33%;background:#997B4D"></div></div>
+<div class="flex justify-between items-start">
+<div id="ind-1" class="flex flex-col items-center" style="width:16.6%"><div class="step-circle w-10 h-10 flex items-center justify-center border text-xs font-light tracking-widest transition-all duration-500 bg-white" style="border-color:#997B4D;color:#997B4D;transform:scale(1.1);box-shadow:0 4px 12px rgba(0,0,0,.12)">1</div><span class="hidden md:block mt-3 text-[10px] uppercase tracking-[0.2em] text-center" style="color:#997B4D">Behandeling</span></div>
+<div id="ind-2" class="flex flex-col items-center" style="width:16.6%"><div class="step-circle w-10 h-10 flex items-center justify-center border text-xs font-light tracking-widest transition-all duration-500 bg-white" style="border-color:#e5e7eb;color:#9ca3af">2</div><span class="hidden md:block mt-3 text-[10px] uppercase tracking-[0.2em] text-center" style="color:#9ca3af">Barber</span></div>
+<div id="ind-3" class="flex flex-col items-center" style="width:16.6%"><div class="step-circle w-10 h-10 flex items-center justify-center border text-xs font-light tracking-widest transition-all duration-500 bg-white" style="border-color:#e5e7eb;color:#9ca3af">3</div><span class="hidden md:block mt-3 text-[10px] uppercase tracking-[0.2em] text-center" style="color:#9ca3af">Datum</span></div>
+<div id="ind-4" class="flex flex-col items-center" style="width:16.6%"><div class="step-circle w-10 h-10 flex items-center justify-center border text-xs font-light tracking-widest transition-all duration-500 bg-white" style="border-color:#e5e7eb;color:#9ca3af">4</div><span class="hidden md:block mt-3 text-[10px] uppercase tracking-[0.2em] text-center" style="color:#9ca3af">Tijd</span></div>
+<div id="ind-5" class="flex flex-col items-center" style="width:16.6%"><div class="step-circle w-10 h-10 flex items-center justify-center border text-xs font-light tracking-widest transition-all duration-500 bg-white" style="border-color:#e5e7eb;color:#9ca3af">5</div><span class="hidden md:block mt-3 text-[10px] uppercase tracking-[0.2em] text-center" style="color:#9ca3af">Gegevens</span></div>
+<div id="ind-6" class="flex flex-col items-center" style="width:16.6%"><div class="step-circle w-10 h-10 flex items-center justify-center border text-xs font-light tracking-widest transition-all duration-500 bg-white" style="border-color:#e5e7eb;color:#9ca3af">6</div><span class="hidden md:block mt-3 text-[10px] uppercase tracking-[0.2em] text-center" style="color:#9ca3af">Bevestig</span></div>
+</div></div></header>
+
+<main class="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-16">
+
+<div id="step-1a" class="step-panel active">
+<div class="text-center mb-12"><h1 class="text-3xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Kies uw behandeling</h1><div class="w-20 h-px mx-auto mb-4" style="background:#997B4D4d"></div><p class="text-gray-500 italic font-light">Selecteer de gewenste dienst</p></div>
+<div class="grid md:grid-cols-2 gap-6" id="treatmentGrid1a"></div>
+</div>
+
+<div id="step-2" class="step-panel">
+<div class="text-center mb-12"><h1 class="text-3xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Uw Stylist</h1><div class="w-20 h-px mx-auto mb-4" style="background:#997B4D4d"></div><p class="text-gray-500 italic font-light">Beschikbare specialist</p></div>
+<div class="max-w-sm mx-auto"><button onclick="selectBarber()" class="w-full group bg-white/60 p-10 text-center transition-all shadow-xl" style="border:2px solid #997B4D">
+<div class="w-24 h-24 mx-auto mb-6 overflow-hidden" style="border:2px solid #997B4D4d"><div style="width:100%;height:100%;background:#997B4D22;display:flex;align-items:center;justify-content:center;color:#997B4D;font-size:2rem;font-weight:300">A</div></div>
+<h3 class="text-xl text-gray-800 uppercase tracking-widest font-light mb-1">Ami Bulut</h3>
+<p class="text-xs uppercase tracking-[0.2em] mb-6" style="color:#997B4D">Senior Stylist</p>
+<div class="py-3 px-8 uppercase text-xs tracking-[0.2em] text-white" style="background:#997B4D">Selecteer</div>
+</button></div></div>
+
+<div id="step-3" class="step-panel">
+<div class="text-center mb-12"><h1 class="text-3xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Selecteer een datum</h1><div class="w-16 h-px mx-auto mb-4" style="background:#997B4D4d"></div><p class="text-gray-500 italic font-light">Kies de dag die u het beste uitkomt</p></div>
+<div class="max-w-lg mx-auto bg-white/60 p-8 md:p-12 shadow-2xl" style="border:1px solid #997B4D1a">
+<div class="flex items-center justify-between mb-10 pb-6" style="border-bottom:1px solid #997B4D1a">
+<button onclick="changeMonth(-1)" class="w-10 h-10 flex items-center justify-center transition-all" style="border:1px solid #997B4D33" onmouseover="this.style.background='#997B4D';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color=''"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+<h2 id="calendarTitle" class="text-lg font-light uppercase tracking-[0.2em] text-gray-800"></h2>
+<button onclick="changeMonth(1)" class="w-10 h-10 flex items-center justify-center transition-all" style="border:1px solid #997B4D33" onmouseover="this.style.background='#997B4D';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color=''"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+</div>
+<div class="grid grid-cols-7 gap-2 mb-4"><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Zo</div><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Ma</div><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Di</div><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Wo</div><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Do</div><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Vr</div><div class="text-center text-[10px] uppercase tracking-[0.2em] py-1" style="color:#997B4D99">Za</div></div>
+<div id="calendarGrid" class="grid grid-cols-7 gap-2"></div>
+</div></div>
+
+<div id="step-4" class="step-panel">
+<div class="text-center mb-12"><h1 class="text-3xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Kies een tijdstip</h1><div class="w-16 h-px mx-auto mb-4" style="background:#997B4D4d"></div><p id="timeDateLabel" class="text-gray-500 italic font-light"></p><p id="durationText" class="text-xs mt-2 uppercase tracking-widest" style="color:#997B4D99"></p></div>
+<div class="space-y-12"><div id="slotsOchtend"></div><div id="slotsMiddag"></div></div></div>
+
+<div id="step-5" class="step-panel">
+<div class="text-center mb-12"><h1 class="text-3xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Uw gegevens</h1><div class="w-16 h-px mx-auto mb-4" style="background:#997B4D4d"></div><p class="text-gray-500 italic font-light">Vul uw contactgegevens in om de afspraak te bevestigen</p></div>
+<div class="max-w-xl mx-auto"><form id="customerForm" onsubmit="submitCustomerForm(event)" class="bg-white/60 p-10 shadow-2xl space-y-8" style="border:1px solid #997B4D1a">
+<div class="space-y-3"><label class="block text-[10px] uppercase tracking-[0.3em] font-medium" style="color:#997B4D">Volledige naam</label><input id="f-name" type="text" required placeholder="Bijv. Jan Jansen" class="w-full bg-white pl-4 pr-4 py-4 focus:outline-none font-light text-gray-800" style="border:1px solid #997B4D1a" onfocus="this.style.borderColor='#997B4D'" onblur="this.style.borderColor='#997B4D1a'"></div>
+<div class="space-y-3"><label class="block text-[10px] uppercase tracking-[0.3em] font-medium" style="color:#997B4D">E-mailadres</label><input id="f-email" type="email" required placeholder="uw@email.nl" class="w-full bg-white pl-4 pr-4 py-4 focus:outline-none font-light text-gray-800" style="border:1px solid #997B4D1a" onfocus="this.style.borderColor='#997B4D'" onblur="this.style.borderColor='#997B4D1a'"><p class="text-[10px] text-gray-400 italic tracking-wider">U ontvangt een digitale bevestigingsmail</p></div>
+<div class="space-y-3"><label class="block text-[10px] uppercase tracking-[0.3em] font-medium" style="color:#997B4D">Telefoonnummer</label><input id="f-phone" type="tel" required placeholder="06 12 34 56 78" class="w-full bg-white pl-4 pr-4 py-4 focus:outline-none font-light text-gray-800" style="border:1px solid #997B4D1a" onfocus="this.style.borderColor='#997B4D'" onblur="this.style.borderColor='#997B4D1a'"></div>
+<div class="pt-4"><button type="submit" class="w-full text-white py-5 uppercase tracking-[0.3em] text-xs transition-all flex items-center justify-center gap-3 shadow-xl" style="background:#997B4D" onmouseover="this.style.background='#866a41'" onmouseout="this.style.background='#997B4D'">Doorgaan naar overzicht<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button><p class="text-[9px] text-gray-400 text-center mt-4 uppercase tracking-[0.15em]">Uw gegevens worden nooit gedeeld met derden</p></div>
+</form></div></div>
+
+<div id="step-6" class="step-panel">
+<div class="text-center mb-12"><h1 class="text-3xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Bevestig uw afspraak</h1><div class="w-16 h-px mx-auto mb-4" style="background:#997B4D4d"></div><p class="text-gray-500 italic font-light">Controleer uw gegevens voordat u bevestigt</p></div>
+<div class="max-w-3xl mx-auto space-y-6">
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-white/60 p-8 relative" style="border:1px solid #997B4D1a"><p class="text-[10px] uppercase tracking-[0.2em] mb-1" style="color:#997B4D99">Behandeling</p><h3 id="sum-treatment" class="text-lg text-gray-800 uppercase tracking-widest font-light"></h3><div class="pt-3"><span id="sum-duration" class="text-xs text-gray-500 font-light italic"></span> &nbsp; <span id="sum-price" class="text-xs text-gray-800 font-medium"></span></div><button onclick="goToStep('1a')" class="absolute top-4 right-4 text-gray-400 hover:text-[#997B4D] p-2 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></button></div>
+<div class="bg-white/60 p-8" style="border:1px solid #997B4D1a"><p class="text-[10px] uppercase tracking-[0.2em] mb-1" style="color:#997B4D99">Stylist</p><h3 class="text-lg text-gray-800 uppercase tracking-widest font-light">Ami Bulut</h3><p class="text-xs italic font-light mt-1" style="color:#997B4D">Senior Stylist</p></div>
+</div>
+<div class="bg-white/60 p-8 relative" style="border:1px solid #997B4D1a"><p class="text-[10px] uppercase tracking-[0.2em] mb-1" style="color:#997B4D99">Wanneer</p><p id="sum-date" class="text-lg text-gray-800 uppercase tracking-widest font-light capitalize"></p><p id="sum-time" class="text-lg text-gray-800 uppercase tracking-widest font-light"></p><button onclick="goToStep('3')" class="absolute top-4 right-4 text-gray-400 hover:text-[#997B4D] p-2 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></button></div>
+<div class="bg-white/60 p-8 relative" style="border:1px solid #997B4D1a"><p class="text-[10px] uppercase tracking-[0.2em] mb-1" style="color:#997B4D99">Uw Gegevens</p><p id="sum-name" class="text-lg text-gray-800 font-light"></p><p id="sum-email" class="text-sm text-gray-500 font-light mt-1"></p><p id="sum-phone" class="text-sm text-gray-500 font-light"></p><button onclick="goToStep('5')" class="absolute top-4 right-4 text-gray-400 hover:text-[#997B4D] p-2 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg></button></div>
+<div class="flex items-center justify-between p-8" style="background:#997B4D0d;border:1px solid #997B4D33"><div><p class="text-[10px] uppercase tracking-[0.2em] mb-1" style="color:#997B4D99">Totaal</p><p id="sum-total" class="text-3xl text-gray-800 font-light"></p></div><button onclick="confirmBooking()" class="text-white px-12 py-5 uppercase tracking-[0.3em] text-xs shadow-xl flex items-center gap-3" style="background:#997B4D" onmouseover="this.style.background='#866a41'" onmouseout="this.style.background='#997B4D'">Bevestig afspraak<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button></div>
+</div></div>
+
+<div id="step-final" class="step-panel">
+<div class="max-w-3xl mx-auto text-center mb-12">
+<div class="inline-flex items-center justify-center w-24 h-24 mb-8 relative" style="border:1px solid #997B4D4d"><div class="absolute inset-0 rotate-45" style="border:1px solid #997B4D1a"></div><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="#997B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></div>
+<h1 class="text-4xl md:text-5xl mb-4 uppercase tracking-[0.2em] font-light" style="color:#997B4D">Afspraak Bevestigd</h1>
+<div class="w-20 h-px mx-auto mb-6" style="background:#997B4D4d"></div>
+<p class="text-gray-600 text-lg font-light italic">Bedankt voor uw vertrouwen, <span id="conf-name"></span>.</p>
+<p class="text-gray-500 text-sm mt-2 font-light">Een bevestiging is verzonden naar <span id="conf-email" style="color:#997B4D"></span></p>
+</div>
+<div class="max-w-3xl mx-auto grid md:grid-cols-5 gap-8">
+<div class="md:col-span-3 bg-white/60 p-10 shadow-2xl relative overflow-hidden" style="border:1px solid #997B4D1a"><div class="absolute top-0 left-0 w-1 h-full" style="background:#997B4D"></div>
+<h2 class="text-xl uppercase tracking-[0.2em] font-light mb-8 pb-4" style="color:#997B4D;border-bottom:1px solid #997B4D1a">Uw Reservering</h2>
+<div class="space-y-8">
+<div class="flex items-start gap-6"><div class="w-10 h-10 flex items-center justify-center flex-shrink-0" style="border:1px solid #997B4D33"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="#997B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg></div><div><p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">Behandeling</p><p id="conf-treatment" class="text-lg text-gray-800 uppercase tracking-widest font-light"></p><p id="conf-price" class="text-xs mt-1 italic font-light" style="color:#997B4D"></p></div></div>
+<div class="flex items-start gap-6"><div class="w-10 h-10 flex items-center justify-center flex-shrink-0" style="border:1px solid #997B4D33"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="#997B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></div><div><p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">Wanneer</p><p id="conf-date" class="text-lg text-gray-800 uppercase tracking-widest font-light capitalize"></p><p id="conf-time" class="text-lg text-gray-800 uppercase tracking-widest font-light"></p></div></div>
+<div class="flex items-start gap-6"><div class="w-10 h-10 flex items-center justify-center flex-shrink-0" style="border:1px solid #997B4D33"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="#997B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div><div><p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">Locatie</p><p class="text-lg text-gray-800 uppercase tracking-widest font-light">Annie Romeinplein 52</p><p class="text-sm text-gray-500 font-light">1103 JL Amsterdam</p></div></div>
+</div></div>
+<div class="md:col-span-2 space-y-6">
+<div class="bg-white/60 p-8" style="border:1px solid #997B4D1a"><h3 class="text-sm uppercase tracking-[0.2em] font-medium mb-4" style="color:#997B4D">Stylist</h3><div class="flex items-center gap-4"><div class="w-14 h-14 overflow-hidden flex-shrink-0" style="border:1px solid #997B4D33"><div style="width:100%;height:100%;background:#997B4D22;display:flex;align-items:center;justify-content:center;color:#997B4D;font-size:2rem;font-weight:300">A</div></div><div><p class="font-light text-gray-800 uppercase tracking-widest text-sm">Ami Bulut</p><p class="text-xs italic" style="color:#997B4D">Senior Stylist</p></div></div></div>
+<a href="index.html" class="block text-white py-4 px-8 uppercase tracking-[0.2em] text-xs text-center shadow-lg transition-all" style="background:#997B4D" onmouseover="this.style.background='#866a41'" onmouseout="this.style.background='#997B4D'">Terug naar home</a>
+<p class="text-[10px] text-gray-400 text-center uppercase tracking-widest">Vragen? Bel 06 - 25 26 65 31</p>
+</div></div></div>
+
+</main>
+
+<script>
+var CATALOG = [{name:"Knippen",price:"€ 27,00",duration:45,desc:"Stijlvolle coupes voor dames en heren, perfect afgestemd op uw persoonlijkheid."},{name:"Verven",price:"€ 45,00",duration:75,desc:"Van subtiele highlights tot complete kleurtransformaties voor een fris nieuw look."},{name:"Keratine",price:"€ 55,00",duration:90,desc:"Zijdezacht, pluisvrij haar met professionele keratine behandelingen."},{name:"Permanenten",price:"€ 70,00",duration:120,desc:"Prachtige krullen of meer volume met duurzame permanent behandelingen."},{name:"Braids",price:"€ 80,00",duration:120,desc:"Professionele vlechttechnieken en box braids voor een uniek en stijlvol resultaat."}];
+var CLOSED_DAYS = [0,1];
+var SLOTS_DIDO   = ["10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"];
+var SLOTS_FRI    = ["09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00"];
+var SLOTS_SAT    = ["09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"];
+
+var state = { currentStep:"1a", treatment:null, date:null, time:null, customer:{} };
+var stepHistory = [];
+var progressMap = {"1a":"8.33%","2":"25%","3":"41.66%","4":"58.33%","5":"75%","6":"91.66%","final":"100%"};
+var stepNumbers = {"1a":1,"2":2,"3":3,"4":4,"5":5,"6":6,"final":6};
+var dutchMonths = ["januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december"];
+var dutchDays   = ["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"];
+
+function goToStep(step) {
+  stepHistory.push(state.currentStep);
+  document.querySelectorAll(".step-panel").forEach(function(p){p.classList.remove("active");});
+  document.getElementById("step-"+step).classList.add("active");
+  state.currentStep = step;
+  document.getElementById("progressFill").style.width = progressMap[step];
+  var an = stepNumbers[step];
+  for (var i=1;i<=6;i++) {
+    var ind = document.getElementById("ind-"+i);
+    var c = ind.querySelector(".step-circle");
+    if (i < an) {
+      c.style.background = "#997B4D"; c.style.borderColor = "#997B4D"; c.style.color = "#fff"; c.style.transform = "rotate(45deg) scale(1)"; c.style.boxShadow="";
+      c.innerHTML = '<div style="transform:rotate(-45deg)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>';
+    } else if (i === an) {
+      c.style.background = "#fff"; c.style.borderColor = "#997B4D"; c.style.color = "#997B4D"; c.style.transform = "scale(1.1)"; c.style.boxShadow = "0 4px 12px rgba(0,0,0,.12)";
+      c.innerHTML = '<span style="font-size:.75rem;font-weight:300;letter-spacing:.15em">' + i + '</span>';
+    } else {
+      c.style.background = "#fff"; c.style.borderColor = "#e5e7eb"; c.style.color = "#9ca3af"; c.style.transform = "scale(1)"; c.style.boxShadow="";
+      c.innerHTML = '<span style="font-size:.75rem;font-weight:300;letter-spacing:.15em">' + i + '</span>';
+    }
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function goBack() {
+  if (stepHistory.length > 0) goToStep(stepHistory.pop());
+  else window.location.href = "index.html";
+}
+
+// ---- STEP 1: Treatments ----
+var grid1a = document.getElementById("treatmentGrid1a");
+CATALOG.forEach(function(item) {
+  var btn = document.createElement("button");
+  btn.className = "treatment-btn text-left p-8 bg-white/60 group relative flex flex-col justify-between transition-all hover:shadow-xl";
+  btn.style.border = "1px solid #997B4D1a";
+  btn.onmouseover = function(){this.style.borderColor="#997B4D";};
+  btn.onmouseout  = function(){this.style.borderColor="#997B4D1a";};
+  btn.innerHTML = "<div><div style='display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem'>"+
+    "<h3 style='text-transform:uppercase;letter-spacing:.1em;font-weight:300;font-size:1.125rem;color:#1f2937'>"+item.name+"</h3>"+
+    "<span style='color:#997B4D;white-space:nowrap'>"+item.price+"</span></div>"+
+    "<p style='color:#6b7280;font-size:.875rem;font-style:italic;font-weight:300'>"+item.desc+"</p></div>"+
+    "<div style='border-top:1px solid #997B4D0d;padding-top:.75rem;margin-top:1rem;font-size:.7rem;color:#9ca3af;text-transform:uppercase;letter-spacing:.15em'>'+item.duration+" min</div>";
+  btn.addEventListener("click", function(){ state.treatment = item; goToStep("2"); });
+  grid1a.appendChild(btn);
+});
+
+// ---- STEP 2: Barber ----
+function selectBarber() { goToStep("3"); renderCalendar(calYear, calMonth); }
+
+// ---- STEP 3: Calendar ----
+var today = new Date();
+var calYear = today.getFullYear(), calMonth = today.getMonth();
+function changeMonth(dir) { calMonth += dir; if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;} renderCalendar(calYear,calMonth); }
+function renderCalendar(year,month) {
+  document.getElementById("calendarTitle").textContent = dutchMonths[month]+" "+year;
+  var grid = document.getElementById("calendarGrid"); grid.innerHTML = "";
+  var firstDay = new Date(year,month,1).getDay();
+  var daysInMonth = new Date(year,month+1,0).getDate();
+  for(var i=0;i<firstDay;i++){var e=document.createElement("div");grid.appendChild(e);}
+  for(var d=1;d<=daysInMonth;d++) {
+    var date = new Date(year,month,d);
+    var dow = date.getDay();
+    var isPast = date < new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    var isClosed = CLOSED_DAYS.indexOf(dow) !== -1;
+    var btn = document.createElement("button");
+    btn.textContent = d;
+    if (isPast||isClosed) {
+      btn.disabled=true; btn.className="date-btn aspect-square flex items-center justify-center text-sm font-light border border-transparent text-gray-300 cursor-not-allowed"; btn.style.background="rgba(249,250,251,.5)";
+    } else {
+      btn.className="date-btn aspect-square flex items-center justify-center text-sm font-light transition-all cursor-pointer"; btn.style.background="rgba(255,255,255,.6)"; btn.style.border="1px solid #997B4D1a";
+      btn.onmouseover=function(){if(!this.classList.contains("selected")){this.style.borderColor="#997B4D";this.style.color="#997B4D";}}
+      btn.onmouseout=function(){if(!this.classList.contains("selected")){this.style.borderColor="#997B4D1a";this.style.color="";}}
+      (function(dateObj,dayNum){ btn.addEventListener("click",function(){
+        state.date=dateObj;
+        document.querySelectorAll(".date-btn").forEach(function(b){b.classList.remove("selected");b.style.background="rgba(255,255,255,.6)";b.style.borderColor="#997B4D1a";b.style.color="";});
+        this.classList.add("selected"); this.style.background="#997B4D"; this.style.color="#fff";
+        setTimeout(function(){goToStep("4");renderTimeSlots(dayNum);},200);
+      }); })(date,dow);
+    }
+    grid.appendChild(btn);
+  }
+}
+
+// ---- STEP 4: Time slots ----
+function getSlots(dow) { if(dow===5)return SLOTS_FRI; if(dow===6)return SLOTS_SAT; return SLOTS_DIDO; }
+function getDisabled(date){var seed=date.getDate()*13+date.getMonth()*7;var all=["10:30","11:00","13:30","14:00","15:30","09:30","12:00"];var n=(seed%3)+1;var d=[];for(var i=0;i<n;i++)d.push(all[(seed+i*3)%all.length]);return d;}
+function renderTimeSlots(dow) {
+  var d=state.date; var slots=getSlots(dow); var disabled=getDisabled(d);
+  document.getElementById("timeDateLabel").textContent=dutchDays[dow]+" "+d.getDate()+" "+dutchMonths[d.getMonth()]+" "+d.getFullYear();
+  document.getElementById("durationText").textContent="Verwachte duur: "+(state.treatment?state.treatment.duration:60)+" minuten";
+  var mid=Math.ceil(slots.length/2);
+  renderSlotGroup("slotsOchtend","Ochtend",slots.slice(0,mid),disabled);
+  renderSlotGroup("slotsMiddag","Middag",slots.slice(mid),disabled);
+}
+function renderSlotGroup(cId,label,times,disabled) {
+  var el=document.getElementById(cId); if(!times||!times.length){el.innerHTML="";return;}
+  var out="<div class='space-y-6'><h3 style='color:#997B4D;font-size:.875rem;text-transform:uppercase;letter-spacing:.2em;font-weight:500;display:flex;align-items:center;gap:1rem'>"+label+"<div style='flex:1;height:1px;background:#997B4D1a'></div></h3><div class='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4'>";
+  times.forEach(function(t){
+    var isD=disabled.indexOf(t)!==-1;
+    if(isD){out+="<div class='p-5 flex flex-col items-center justify-center text-gray-300 cursor-not-allowed' style='border:1px solid transparent;background:rgba(249,250,251,.5)'><span style='font-size:1rem;font-weight:300;letter-spacing:.1em;text-decoration:line-through'>"+t+"</span></div>";}
+    else{out+="<button onclick='selectTime(\""+t+"\")' class='time-btn p-5 flex flex-col items-center justify-center gap-2 cursor-pointer group' style='border:1px solid #997B4D1a;background:rgba(255,255,255,.6)'><span style='font-size:1rem;font-weight:300;letter-spacing:.1em;color:#1f2937'>"+t+"</span><div style='width:1.25rem;height:1px;background:#997B4D4d'></div></button>";}
+  });
+  out+="</div></div>"; el.innerHTML=out;
+}
+function selectTime(t){state.time=t;document.querySelectorAll(".time-btn").forEach(function(b){b.classList.remove("selected");});event.currentTarget.classList.add("selected");setTimeout(function(){goToStep("5");},200);}
+
+// ---- STEP 5: Form ----
+function submitCustomerForm(e){e.preventDefault();state.customer.name=document.getElementById("f-name").value;state.customer.email=document.getElementById("f-email").value;state.customer.phone=document.getElementById("f-phone").value;populateSummary();goToStep("6");}
+
+// ---- STEP 6: Summary ----
+function populateSummary(){
+  var t=state.treatment,d=state.date;
+  var ds=dutchDays[d.getDay()]+" "+d.getDate()+" "+dutchMonths[d.getMonth()]+" "+d.getFullYear();
+  document.getElementById("sum-treatment").textContent=t.name;
+  document.getElementById("sum-duration").textContent=t.duration+" min";
+  document.getElementById("sum-price").textContent=t.price;
+  document.getElementById("sum-date").textContent=ds;
+  document.getElementById("sum-time").textContent=state.time+" uur";
+  document.getElementById("sum-name").textContent=state.customer.name;
+  document.getElementById("sum-email").textContent=state.customer.email;
+  document.getElementById("sum-phone").textContent=state.customer.phone;
+  document.getElementById("sum-total").textContent=t.price;
+}
+function confirmBooking(){
+  var t=state.treatment,d=state.date;
+  document.getElementById("conf-name").textContent=state.customer.name.split(" ")[0];
+  document.getElementById("conf-email").textContent=state.customer.email;
+  document.getElementById("conf-treatment").textContent=t.name;
+  document.getElementById("conf-price").textContent=t.duration+" min • "+t.price;
+  document.getElementById("conf-date").textContent=dutchDays[d.getDay()]+" "+d.getDate()+" "+dutchMonths[d.getMonth()]+" "+d.getFullYear();
+  document.getElementById("conf-time").textContent=state.time+" uur";
+  goToStep("final");
+}
+
+renderCalendar(calYear,calMonth);
+</script>
+</body>
+</html>
